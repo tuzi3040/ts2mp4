@@ -52,7 +52,7 @@ def main(cloud_event):
     tmp_to_file = os.path.join('/tmp', to_filename)
     gcp_logentry_logger.info("Invoking ffmpeg...")
     ffmpeg_ps = subprocess.run(['ffmpeg', '-i', tmp_from_file, '-c', 'copy', tmp_to_file], capture_output = True)
-    gcp_logentry_logger.notice(f'{" ".join(ffmpeg_ps.args)}\n{ffmpeg_ps.stderr}')
+    gcp_logentry_logger.notice(f'{" ".join(ffmpeg_ps.args)}\n{ffmpeg_ps.stderr.decode()}')
     ffmpeg_ps.check_returncode()
 
     to_blob_instance = to_bucket_instance.blob(to_blob_path)
